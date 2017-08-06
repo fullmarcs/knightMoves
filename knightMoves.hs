@@ -1,4 +1,5 @@
 import Data.List
+import Data.Maybe
 import Control.Applicative
 
 type KnightPos = (Int,Int)
@@ -25,3 +26,15 @@ movesToReach :: KnightPos -> KnightPos -> Maybe Int
 movesToReach start end
     | start == end = Nothing
     | otherwise    = (+) <$> Just 1 <*> (findIndex (elem end) (iterate moveKnightList (moveKnight start)))
+
+-- Main program
+-- Coordinates must be entered like so: "col row"
+main = do
+    putStr "Enter the column number and row number of the\nstarting position, separated by a space: "
+    start <- getLine
+    putStr "Enter the column number and row number of the\nend position, separated by a space: "
+    end <- getLine
+    let [a, b] = map read (words start) :: [Int]
+        [c, d] = map read (words end) :: [Int]
+        n = fromMaybe 0 $ movesToReach (a, b) (c, d) :: Int
+        in putStrLn $ "The number of moves required to get from (" ++ (show a) ++ ", " ++ (show b) ++ ") to (" ++ (show c) ++ ", " ++ (show d) ++ ") is " ++ (show n) ++ "."
