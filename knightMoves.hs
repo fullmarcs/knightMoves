@@ -19,13 +19,10 @@ moveKnightList :: [KnightPos] -> [KnightPos]
 moveKnightList [] = []
 moveKnightList (x:xs) = (moveKnight x) ++ (moveKnightList xs)
 
--- Fail if start and end are the same tile;
--- otherwise, find the first element of the infinite list of move sequences that
+-- Find the first element of the infinite list of move sequences that
 -- contains the desired tile, adding 1 to give the correct number of moves
 movesToReach :: KnightPos -> KnightPos -> Int
-movesToReach start end
-    | start == end = 0
-    | otherwise    = fromMaybe 0 $ (+) <$> Just 1 <*> (findIndex (elem end) (iterate moveKnightList (moveKnight start)))
+movesToReach start end = fromMaybe 0 $ findIndex (end `elem`) $ iterate moveKnightList [start]
 
 -- Main program
 -- Coordinates must be entered like so: "col row"
