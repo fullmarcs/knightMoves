@@ -54,6 +54,7 @@ public class BoardView extends GridPane {
                 if (i == model.getEnd().getX() && j == model.getEnd().getY()) { grid[i][j].setStyle("-fx-base: #0000c0"); }
             }
         }
+        if (model.getStart().getX() == 0 && model.getEnd().getX() == 0) { dialog.setText("Please select the beginning tile."); }
         if (model.getStart().getX() != 0 && model.getEnd().getX() == 0) { dialog.setText("Please select the ending tile."); }
         if (model.getStart().getX() != 0 && model.getEnd().getX() != 0) { dialog.setText("This would take " + numMoves(model.getStart(), model.getEnd()) + " moves."); }
     }
