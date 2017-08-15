@@ -34,4 +34,4 @@ main = do
     let startpos = map read $ words start
         endpos = map read $ words end
         n = movesToReach (startpos !! 0, startpos !! 1) (endpos !! 0, endpos !! 1)
-        in putStrLn $ "\nThe number of moves required to get from " ++ show startpos ++ " to " ++ show endpos ++ " is " ++ show n ++ ".\n"
+        in putStrLn $ "\nThe number of moves required to get from " ++ show startpos ++ " to " ++ show endpos ++ " is " ++ show n ++ "."
