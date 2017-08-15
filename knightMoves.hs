@@ -22,19 +22,19 @@ moveKnightList (x:xs) = (moveKnight x) ++ (moveKnightList xs)
 -- Fail if start and end are the same tile;
 -- otherwise, find the first element of the infinite list of move sequences that
 -- contains the desired tile, adding 1 to give the correct number of moves
-movesToReach :: KnightPos -> KnightPos -> Maybe Int
+movesToReach :: KnightPos -> KnightPos -> Int
 movesToReach start end
-    | start == end = Nothing
-    | otherwise    = (+) <$> Just 1 <*> (findIndex (elem end) (iterate moveKnightList (moveKnight start)))
+    | start == end = 0
+    | otherwise    = fromMaybe 0 $ (+) <$> Just 1 <*> (findIndex (elem end) (iterate moveKnightList (moveKnight start)))
 
 -- Main program
 -- Coordinates must be entered like so: "col row"
 main = do
-    putStr "Enter the column number and row number of the\nstarting position, separated by a space: "
+    putStr "c1 r1 = "
     start <- getLine
-    putStr "Enter the column number and row number of the\nend position, separated by a space: "
+    putStr "c2 r2 = "
     end <- getLine
-    let [a, b] = map read (words start) :: [Int]
-        [c, d] = map read (words end) :: [Int]
-        n = fromMaybe 0 $ movesToReach (a, b) (c, d) :: Int
-        in putStrLn $ "The number of moves required to get from (" ++ (show a) ++ ", " ++ (show b) ++ ") to (" ++ (show c) ++ ", " ++ (show d) ++ ") is " ++ (show n) ++ "."
+    let startpos = map read $ words start
+        endpos = map read $ words end
+        n = movesToReach (startpos !! 0, startpos !! 1) (endpos !! 0, endpos !! 1)
+        in putStrLn $ "\nThe number of moves required to get from " ++ show startpos ++ " to " ++ show endpos ++ " is " ++ show n ++ ".\n"
